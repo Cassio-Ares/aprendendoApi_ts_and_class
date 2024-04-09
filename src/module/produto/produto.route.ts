@@ -11,8 +11,12 @@ router.get('/', async (req: Request, res:express.Response) => {
 })
 
 router.post('/', async (req: Request, res:Response) => {
+    if (!req.body.nome || !req.body.preco) {
+        return res.status(400).json({ msg: 'Nome e Preço são obrigatórios' })
+      }
+      
     const data = await produtoFactory.store(req.body);
-    return res.status(200).json({ data });
+    return res.status(201).json({ data });
   });
   
  export default router;
